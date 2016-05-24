@@ -5,11 +5,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Travel Sharing</title>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <link rel="icon" type="image/png" href="https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/plane-128.png">
+
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
         <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+
+        <!-- Cusotm files-->
         <link rel="stylesheet" type="text/css" href="static/main.css" />
-        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
         <script src="static/main.js"></script>
     </head>
     <body>
@@ -46,56 +50,136 @@
         </nav>
         <div class="container">
             <div class="row">
-                <div class="col-md-2">Links</div>
-                <div class="col-md-8">
-                    <form name="memberForm" class="ng-pristine ng-invalid ng-invalid-required ng-valid-minlength ng-valid-email ng-valid-maxlength">
-                    <div class="row">
-                        <div class="col-sm-9">
-                            <label for="name">Name:</label>
-                            <input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="name" type="name" placeholder="First and last name" required="">
-                        </div>
-                        <div class="col-sm-3">
-                            <label for="date">Date:</label>
-                            <input id="date" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="date" type="date" required="">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-9">
-                            <label for="address">Address:</label>
-                            <input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="address" type="address" placeholder="eg. 555 5th Ave S" required="">
-                        </div>
-                        <div class="col-sm-3">
-                            <label for="zip">Zipcode:</label>
-                            <input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-minlength" ng-model="zip" type="zip" placeholder="eg. 98105" minlength="4" required="">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label for="city">City:</label>
-                            <input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="city" type="city" placeholder="eg. Seattle" required="">
-                        </div>
-                        <div class="col-sm-6">
-                            <label for="state">State:</label>
-                            <input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="state" type="state" placeholder="eg. Washington" required="">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label for="email">Email:</label>
-                            <input id="invalidInput" class="form-control ng-pristine ng-untouched ng-valid-email ng-invalid ng-invalid-required" ng-model="email" type="email" placeholder="eg. youremail@here.com" required="">
-                        </div>
-                        <div class="col-sm-6">
-                            <label for="phone">Phone:</label>
-                            <input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-minlength ng-valid-maxlength" ng-model="phone" type="phone" placeholder="eg. 555-555-5555" maxlength="12" ng-minlength="9" required="">
-                        </div>
-                    </div>
-
-                    <button class="btn btn-danger submitMemberbutton" ng-click="checkMember()" ng-disabled="memberForm.$invalid" disabled="disabled">Submit</button>
-                    <p class="ng-binding"></p>
-                    <p ng-show="emailInUse" class="ng-hide">It looks like you're already a member.</p>
-                </form>
+                <div class="col-md-2 visible-lg left-nav">
+                    <ul class="list-unstyled side-links">
+                        <li>USER</li>
+                        <li>EDIT PROFILE</li>
+                        <hr />
+                        <li><i class="fa fa-map" aria-hidden="true"></i> LOCATIONS</li>
+                        <li><i class="fa fa-cutlery" aria-hidden="true"></i> FOOD</li>
+                        <li><i class="fa fa-bed" aria-hidden="true"></i> SHELTERS</li>
+                        <li><i class="fa fa-phone-square" aria-hidden="true"></i> CONTACTS</li>
+                    </ul>
                 </div>
-                <div class="col-md-2">Some other sql query</div>
+
+                <!-- FORM TO PUT INTO DATABASE-->
+                <div class="col-md-8 feed">
+                    <div class="row">
+                    	<div class="col-sm-12">
+                    		<form class="trip-form form-horizontal">
+                    			<h4><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Record New Trip</h4>
+                    			<hr />
+                    			<div class="form-group">
+									<label class="control-label col-sm-2" for="trip-name">Trip Title</label>
+									<div class="col-sm-10">
+										<input type="email" class="form-control" id="trip-name" placeholder="Where did you go?" />
+									</div>
+								</div>
+                    			<div class="trip-point">
+                    				<h5>Trip Point #1</h5>
+                    				<div class="form-group">
+                    					<label class="control-label col-sm-2">Date</label>
+										<div class="col-sm-5">
+											<input type="datetime-local" class="input-sm form-control" id="date" placeholder="Date" />
+										</div>
+                    				</div>
+                    				<div class="form-group">
+										<label class="control-label col-sm-2">Location</label>
+										<div class="col-sm-5">
+											<input type="text" class="input-sm form-control" id="address1" placeholder="Address 1" />
+										</div>
+										<div class="col-sm-2">
+											<input type="text" class="input-sm form-control" id="city" placeholder="City" />
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="input-sm form-control" id="country" placeholder="Country" />
+										</div>
+										<div class="col-sm-offset-2 col-sm-5">
+											<input type="text" class="input-sm form-control" id="address2" placeholder="Address 2" />
+										</div>
+										<div class="col-sm-2">
+											<input type="text" class="input-sm form-control" id="state" placeholder="State" />
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="input-sm form-control" id="psotalcode" placeholder="Postal Code" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2">Transportation</label>
+										<div class="col-sm-3">
+											<input type="text" class="input-sm form-control" id="transportation-type" placeholder="Type" />
+										</div>
+										<div class="col-sm-2">
+											<input type="text" class="input-sm form-control" id="transportation-cost" placeholder="Cost" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2">Shelter</label>
+										<div class="col-sm-5">
+											<input type="text" class="input-sm form-control" id="shelter-name" placeholder="Name" />
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="input-sm form-control" id="shelter-cost" placeholder="Cost" />
+										</div>
+										<div class="col-sm-2">
+											<input type="text" class="input-sm form-control" id="type" placeholder="Type" />
+										</div>
+										<div class="col-sm-2 col-sm-offset-2">
+											<input type="text" class="input-sm form-control" id="cost" placeholder="Rating" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2">Food</label>
+										<div class="col-sm-5">
+											<input type="text" class="input-sm form-control" id="shelter-name" placeholder="Name" />
+										</div>
+										<div class="col-sm-3">
+											<input type="text" class="input-sm form-control" id="shelter-cost" placeholder="Cost" />
+										</div>
+										<div class="col-sm-2">
+											<input type="text" class="input-sm form-control" id="type" placeholder="Type" />
+										</div>
+										<div class="col-sm-2 col-sm-offset-2">
+											<input type="text" class="input-sm form-control" id="cost" placeholder="Rating" />
+										</div>
+										<div class="col-sm-offset-2 col-sm-10">
+											<button type="button" class="btn btn-default btn-xs"><i class="fa fa-plus-circle" aria-hidden="true"></i> Food</button>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-2">Contact</label>
+										<div class="col-sm-5">
+											<input type="text" class="input-sm form-control" id="fname" placeholder="First Name" />
+										</div>
+										<div class="col-sm-5">
+											<input type="text" class="input-sm form-control" id="lname" placeholder="Last Name" />
+										</div>
+										<div class="col-sm-4 col-sm-offset-2">
+											<input type="email" class="input-sm form-control" id="cost" placeholder="Email" />
+										</div>
+										<div class="col-sm-4 col-sm-offset-1">
+											<input type="text" class="input-sm form-control" id="number" placeholder="Phone" />
+										</div>
+										<div class="col-sm-offset-2 col-sm-10">
+											<button type="button" class="btn btn-default btn-xs"><i class="fa fa-plus-circle" aria-hidden="true"></i> Contact</button>
+										</div>
+									</div>
+                    			</div>
+                    			<hr />
+								<div class="form-group"> 
+									<div class="col-sm-2">
+										<button type="button" class="btn btn-info"><i class="fa fa-plus-circle" aria-hidden="true"></i> Trip Point</button>
+									</div>
+									<button type="button" class="btn btn-primary">Submit</button>
+								</div>
+                    		</form>
+                    	</div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 visible-lg">
+                    Some other sql query
+                </div>
             </div>
         </div>
         <div class="content" id="results">

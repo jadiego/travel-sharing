@@ -2,12 +2,11 @@ h1, h3, #results {
     text-align: center;
     margin: 0 0 0 0;
 }
-h1 {
-    padding-bottom: 15px;
+
+h1, h2, h3, h4, h5 , h6 {
+    color: #39A0ED;
 }
-h3 {
-    padding-bottom: 10px;
-}
+
 header {
     background-color: #D1B1CB;
 }
@@ -26,4 +25,56 @@ nav ul li a {
 
 .space {
     margin: 0px 10px;
+}
+
+label {
+    -webkit-font-smoothing: antialiased;
+    font-weight: 500;
+}
+
+.trip-form {
+    background-color: rgb(245, 245, 245);
+    margin: 15px;
+    border: solid 1px rgb(230, 230, 230);
+    border-radius: 2px;
+    padding: 15px;
+    /*
+    max-height: 350px;
+    overflow-y: scroll;
+    */
+}
+
+input, button {
+    margin: 2px;
+}
+
+.trip-form h4{
+    padding: 5px 0px;
+    margin: 5px auto;
+}
+
+.trip-form hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.feed {
+    padding: 15px;
+}
+
+.trip-point {
+    border: solid 1px rgb(230, 230, 230);
+    border-radius: 2px;
+    padding: 15px;
+}
+
+.left-nav {
+    padding: 15px;
+}
+
+.side-links {
+    -webkit-font-smoothing: antialiased;
+    font-size: 13px;
+    font-weight: 400;
+    color: #666;
 }
