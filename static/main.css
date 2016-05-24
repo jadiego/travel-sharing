@@ -1,13 +1,8 @@
-body {
-    font-size: 18pt;
-}
-
 h1, h3, #results {
     text-align: center;
     margin: 0 0 0 0;
 }
 h1 {
-    padding-top: 10px;
     padding-bottom: 15px;
 }
 h3 {
@@ -20,6 +15,15 @@ header {
     background-color: #EAFDF8;
     min-height: 100px;
 }
-.content ul {
-    padding-top: 25px;
+
+nav {
+    margin-bottom: 0px !important;
+}
+
+nav ul li a {
+    padding: 15px 5px !important;
+}
+
+.space {
+    margin: 0px 10px;
 }

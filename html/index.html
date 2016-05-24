@@ -2,18 +2,102 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Lab 6 + 7</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="static/main.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Travel Sharing</title>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="static/main.css" />
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
         <script src="static/main.js"></script>
     </head>
     <body>
-        <!-- I apologize to all the UI designers -->
-        <header>
-            <h1>Your site is up and running!</h1>
-            <h3>Edit the HTML once you get this page loaded.</h3>
-        </header>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-links" aria-expanded="false">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">TravelShare</a>
+                </div>
+                <div class="collapse navbar-collapse" id="nav-links">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </span>
+                        </div>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Home</a></li>
+                        <li><a class="visible-lg">|</a></li>
+                        <li><a href="#">Account</a></li>
+                        <li><a class="space visible-lg" href="#"></a></li>
+                        <li><a href="#"><i class="fa fa-users" aria-hidden="true"></i></a></li>
+                        <li><a href="#"><i class="fa fa-globe" aria-hidden="true"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">Links</div>
+                <div class="col-md-8">
+                    <form name="memberForm" class="ng-pristine ng-invalid ng-invalid-required ng-valid-minlength ng-valid-email ng-valid-maxlength">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <label for="name">Name:</label>
+                            <input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="name" type="name" placeholder="First and last name" required="">
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="date">Date:</label>
+                            <input id="date" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="date" type="date" required="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <label for="address">Address:</label>
+                            <input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="address" type="address" placeholder="eg. 555 5th Ave S" required="">
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="zip">Zipcode:</label>
+                            <input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-minlength" ng-model="zip" type="zip" placeholder="eg. 98105" minlength="4" required="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="city">City:</label>
+                            <input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="city" type="city" placeholder="eg. Seattle" required="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="state">State:</label>
+                            <input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="state" type="state" placeholder="eg. Washington" required="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="email">Email:</label>
+                            <input id="invalidInput" class="form-control ng-pristine ng-untouched ng-valid-email ng-invalid ng-invalid-required" ng-model="email" type="email" placeholder="eg. youremail@here.com" required="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="phone">Phone:</label>
+                            <input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required ng-valid-minlength ng-valid-maxlength" ng-model="phone" type="phone" placeholder="eg. 555-555-5555" maxlength="12" ng-minlength="9" required="">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-danger submitMemberbutton" ng-click="checkMember()" ng-disabled="memberForm.$invalid" disabled="disabled">Submit</button>
+                    <p class="ng-binding"></p>
+                    <p ng-show="emailInUse" class="ng-hide">It looks like you're already a member.</p>
+                </form>
+                </div>
+                <div class="col-md-2">Some other sql query</div>
+            </div>
+        </div>
         <div class="content" id="results">
             <div class="row">
                 <div class="col-md-4" id="firstQuery">
