@@ -9,8 +9,10 @@
 
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
         <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+
 
         <!-- Cusotm files-->
         <link rel="stylesheet" type="text/css" href="static/main.css" />
@@ -18,7 +20,7 @@
     </head>
     <body>
         <nav class="navbar navbar-default" role="navigation">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-links" aria-expanded="false">
                     <span class="sr-only">Toggle Navigation</span>
@@ -48,7 +50,7 @@
                 </div>
             </div>
         </nav>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-2 visible-lg left-nav">
                     <ul class="list-unstyled side-links">
@@ -63,25 +65,35 @@
                 </div>
 
                 <!-- FORM TO PUT INTO DATABASE-->
-                <div class="col-md-8 feed">
+                <div class=" col-md-6 feed">
                     <div class="row">
                     	<div class="col-sm-12">
-                    		<form class="trip-form form-horizontal">
-                    			<h4><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Record New Trip</h4>
-                    			<hr />
-                    			<div class="form-group">
-									<label class="control-label col-sm-2" for="trip-name">Trip Title</label>
-									<div class="col-sm-10">
-										<input type="email" class="form-control" id="trip-name" placeholder="Where did you go?" />
+                    		<div class="trip-form form-horizontal">
+                    			<h4><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Record New Trip<span class="toggle">Toggle</span></h4>
+                                <div class="form-container">
+                                    <div class="form-group trip">
+										<label class="control-label col-sm-2" for="trip-name">Trip Title</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="trip-name" placeholder="Where did you go?" required />
+										</div>
+										<label class="control-label col-sm-2" for="trip-name">Description</label>
+										<div class="col-sm-10">
+											<textarea placeholder="What did you do?" class="form-control" id="trip-description" rows="3"></textarea>
+										</div>
 									</div>
-								</div>
-                    			<div class="trip-point">
-                    				<h5>Trip Point #1</h5>
+									<div class="trip-point">
+                    				<h5>Trip Point</h5>
                     				<div class="form-group">
                     					<label class="control-label col-sm-2">Date</label>
 										<div class="col-sm-5">
 											<input type="datetime-local" class="input-sm form-control" id="date" placeholder="Date" />
 										</div>
+                    				</div>
+                    				<div class="form-group">
+                    					<label class="control-label col-sm-2" for="trip-name">Description</label>
+									<div class="col-sm-10">
+										<textarea class="form-control" placeholder="What did you do?" id="trippointdescription" rows="2"></textarea>
+									</div>
                     				</div>
                     				<div class="form-group">
 										<label class="control-label col-sm-2">Location</label>
@@ -95,59 +107,59 @@
 											<input type="text" class="input-sm form-control" id="country" placeholder="Country" />
 										</div>
 										<div class="col-sm-offset-2 col-sm-5">
-											<input type="text" class="input-sm form-control" id="address2" placeholder="Address 2" />
+											<input type="text" class="input-sm form-control" id="address2" placeholder="Address 2 (Optional)" />
 										</div>
 										<div class="col-sm-2">
-											<input type="text" class="input-sm form-control" id="state" placeholder="State" />
+											<input type="text" class="input-sm form-control" id="state" placeholder="State (Optional)" />
 										</div>
 										<div class="col-sm-3">
-											<input type="text" class="input-sm form-control" id="psotalcode" placeholder="Postal Code" />
+											<input type="text" class="input-sm form-control" id="postalcode" placeholder="Postal Code (Optional)" />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-sm-2">Transportation</label>
 										<div class="col-sm-3">
-											<input type="text" class="input-sm form-control" id="transportation-type" placeholder="Type" />
+											<input type="text" class="input-sm form-control" id="transportationtype" placeholder="Type" />
 										</div>
 										<div class="col-sm-2">
-											<input type="text" class="input-sm form-control" id="transportation-cost" placeholder="Cost" />
+											<input type="text" class="input-sm form-control" id="transportationcost" placeholder="Cost" />
+										</div>
+										<div class="col-sm-5">
+											<input type="text" class="input-sm form-control" id="transportation" placeholder="Name" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2">Shelter</label>
+										<label class="control-label col-sm-2"><i class="fa fa-chevron-down" aria-hidden="true"></i> Shelter</label>
 										<div class="col-sm-5">
-											<input type="text" class="input-sm form-control" id="shelter-name" placeholder="Name" />
+											<input type="text" class="input-sm form-control" id="sheltername" placeholder="Name" />
 										</div>
 										<div class="col-sm-3">
-											<input type="text" class="input-sm form-control" id="shelter-cost" placeholder="Cost" />
+											<input type="text" class="input-sm form-control" id="sheltercost" placeholder="Cost" />
 										</div>
 										<div class="col-sm-2">
-											<input type="text" class="input-sm form-control" id="type" placeholder="Type" />
+											<input type="text" class="input-sm form-control" id="sheltertype" placeholder="Type" />
 										</div>
 										<div class="col-sm-2 col-sm-offset-2">
-											<input type="text" class="input-sm form-control" id="cost" placeholder="Rating" />
+											<input type="text" class="input-sm form-control" id="shelterrating" placeholder="Rating (1-5)" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2">Food</label>
+										<label class="control-label col-sm-2"><i class="fa fa-chevron-down" aria-hidden="true"></i> Food</label>
 										<div class="col-sm-5">
-											<input type="text" class="input-sm form-control" id="shelter-name" placeholder="Name" />
+											<input type="text" class="input-sm form-control" id="foodname" placeholder="Name" />
 										</div>
 										<div class="col-sm-3">
-											<input type="text" class="input-sm form-control" id="shelter-cost" placeholder="Cost" />
-										</div>
-										<div class="col-sm-2">
-											<input type="text" class="input-sm form-control" id="type" placeholder="Type" />
+											<input type="text" class="input-sm form-control" id="foodcost" placeholder="Cost" />
 										</div>
 										<div class="col-sm-2 col-sm-offset-2">
-											<input type="text" class="input-sm form-control" id="cost" placeholder="Rating" />
+											<input type="text" class="input-sm form-control" id="foodrating" placeholder="Rating (1-5)" />
 										</div>
 										<div class="col-sm-offset-2 col-sm-10">
 											<button type="button" class="btn btn-default btn-xs"><i class="fa fa-plus-circle" aria-hidden="true"></i> Food</button>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-sm-2">Contact</label>
+										<label class="control-label col-sm-2"><i class="fa fa-chevron-down" aria-hidden="true"></i> Contact</label>
 										<div class="col-sm-5">
 											<input type="text" class="input-sm form-control" id="fname" placeholder="First Name" />
 										</div>
@@ -155,7 +167,7 @@
 											<input type="text" class="input-sm form-control" id="lname" placeholder="Last Name" />
 										</div>
 										<div class="col-sm-4 col-sm-offset-2">
-											<input type="email" class="input-sm form-control" id="cost" placeholder="Email" />
+											<input type="email" class="input-sm form-control" id="email" placeholder="Email" />
 										</div>
 										<div class="col-sm-4 col-sm-offset-1">
 											<input type="text" class="input-sm form-control" id="number" placeholder="Phone" />
@@ -165,41 +177,33 @@
 										</div>
 									</div>
                     			</div>
-                    			<hr />
-								<div class="form-group"> 
-									<div class="col-sm-2">
-										<button type="button" class="btn btn-info"><i class="fa fa-plus-circle" aria-hidden="true"></i> Trip Point</button>
+									<div class="form-bottom"> 
+										<button type="button" id="submittrippoint" class="btn btn-info btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i> Trip Point</button>
+										<button id="submittrip" type="button" class="btn btn-primary btn-sm">Submit</button>
+										<button id="finish" type="button" class="btn btn-primary btn-sm">Finish</button>
 									</div>
-									<button type="button" class="btn btn-primary">Submit</button>
-								</div>
-                    		</form>
+                    			</div>
+                    		</div>
+                    		<div class="feeds col-sm-12">
+                    		</div>
                     	</div>
+                	</div>
+            	</div>
+            	<div class="col-md-4 visible-lg right-side">
+                    <div class="view">
+                    	<ul class="list-group">
+						  <li class="list-group-item">
+						  <h4>Click any trip title!</h4>
+						  <p>To see more information, including all the trip locations a trip includes click a trip.</p>
+						  </li>
+						</ul>
                     </div>
                 </div>
-
-                <div class="col-md-2 visible-lg">
-                    Some other sql query
-                </div>
-            </div>
+        	</div>
         </div>
-        <div class="content" id="results">
-            <div class="row">
-                <div class="col-md-4" id="firstQuery">
-                    <!-- replace the content in the p block with your question -->
-                    <p>
-                        Put question #1 here
-                    </p>
-                </div>
-                <div class="col-md-4" id="secondQuery">
-                    <p>
-                        Put question #2 here
-                    </p>
-                </div>
-                <div class="col-md-4" id="thirdQuery">
-                    <p>
-                        Put question #3 here
-                    </p>
-                </div>
+        <div class="footer">
+            <div class="copyright">
+                © 2016, TravelShare
             </div>
         </div>
     </body>

@@ -23,8 +23,16 @@ nav ul li a {
     padding: 15px 5px !important;
 }
 
+textarea {
+    resize: vertical;
+}
+
 .space {
     margin: 0px 10px;
+}
+
+#finish, .trip-point, #submittrippoint {
+    display: none;
 }
 
 label {
@@ -32,25 +40,70 @@ label {
     font-weight: 500;
 }
 
-.trip-form {
+.form-group {
+    max-width: 100%;
+}
+
+/*
+.form-container {
+    max-height: 120px;
+    overflow-y: scroll;
+}*/
+
+.trip-form, .post {
     background-color: rgb(245, 245, 245);
     margin: 15px;
     border: solid 1px rgb(230, 230, 230);
     border-radius: 2px;
-    padding: 15px;
-    /*
-    max-height: 350px;
-    overflow-y: scroll;
-    */
+}
+
+.trip-form {
+    margin-top: 0px;
+}
+
+.post {
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 input, button {
     margin: 2px;
 }
 
-.trip-form h4{
-    padding: 5px 0px;
-    margin: 5px auto;
+.trip-form h4, .post h4{
+    padding: 5px 10px;
+    margin: 0px;
+    font-size: 15px; 
+}
+
+.trip-form h4 {
+    background-color: rgba(57, 160, 237, 0.7);
+    border: solid 1px rgb(57, 160, 237);
+    color: white;
+}
+
+.trip-form h4 span {
+    float: right;
+    cursor: pointer;
+}
+
+.post h4 {
+    color: rgb(180, 180, 180);
+    font-weight: 400;
+}
+
+.username, .triptitle {
+    color: rgb(57, 160, 237);
+    font-weight: 600;
+}
+
+.triptitle {
+    cursor: pointer;
+}
+
+.form-bottom {
+    padding: 5px 5px;
+    border-top: solid 1.5px rgb(210, 210, 210);
 }
 
 .trip-form hr {
@@ -58,14 +111,25 @@ input, button {
     margin-bottom: 10px;
 }
 
-.feed {
-    padding: 15px;
+.feed,.right-side {
+    padding-top: 15px;
 }
 
 .trip-point {
     border: solid 1px rgb(230, 230, 230);
     border-radius: 2px;
-    padding: 15px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.list-group-item .date{
+    color: rgb((210, 210, 210));
+    font-size: 12px;
+}
+
+.country, .city, .transportation {
+    font-weight: 600;
+    font-size: 15px;
 }
 
 .left-nav {
@@ -77,4 +141,34 @@ input, button {
     font-size: 13px;
     font-weight: 400;
     color: #666;
+}
+
+.media {
+    padding: 5px !important;
+    border-left: solid 3px rgb(57, 160, 237);
+}
+
+.media-heading h4 span.date {
+    float: right;
+    font-size: 11.5px;
+    color: rgb(140, 140, 140)
+}
+
+.footer {
+    position: fixed;
+    bottom: 0px;
+    border-top: 1px solid #e3e3e3;
+    width: 100%;
+    left: 0px;
+    text-align: center;
+    padding: 10px;
+    background: white;
+}
+
+.copyright {
+    text-align: right;
+    padding-right: 10px;
+    font-size: 13px;
+    background: white;
+    margin-bottom: -3px;
 }

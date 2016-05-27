@@ -9,7 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
+	//"strconv"
 
 	// this allows us to run our web server
 	"github.com/gin-gonic/gin"
@@ -55,94 +55,107 @@ func main() {
 		}
 	})
 
-	router.GET("/query1", func(c *gin.Context) {
-		table := "<table class='table'><thead><tr>"
-		// put your query here
-		rows, err := db.Query("SELECT * FROM table1") // <--- EDIT THIS LINE
-		if err != nil {
-			// careful about returning errors to the user!
-			c.AbortWithError(http.StatusInternalServerError, err)
-		}
-		// foreach loop over rows.Columns, using value
-		cols, _ := rows.Columns()
-		if len(cols) == 0 {
-			c.AbortWithStatus(http.StatusNoContent)
-		}
-		for _, value := range cols {
-			table += "<th class='text-center'>" + value + "</th>"
-		}
-		// once you've added all the columns in, close the header
-		table += "</thead><tbody>"
-		// declare all your RETURNED columns here
-		var id int      // <--- EDIT THESE LINES
-		var name string //<--- ^^^^
-		for rows.Next() {
-			// assign each of them, in order, to the parameters of rows.Scan.
-			// preface each variable with &
-			rows.Scan(&id, &name) // <--- EDIT THIS LINE
-			// can't combine ints and strings in Go. Use strconv.Itoa(int) instead
-			table += "<tr><td>" + strconv.Itoa(id) + "</td><td>" + name + "</td></tr>" // <--- EDIT THIS LINE
-		}
-		// finally, close out the body and table
-		table += "</tbody></table>"
-		c.Data(http.StatusOK, "text/html", []byte(table))
+	router.GET("/allTrips", func(c *gin.Context) {
+	    rows, err := db.Query("SELECT member.username, member.picture, trip.name, trip.description, trippoint.date FROM trippoint JOIN trip ON trippoint.tripid = trip.id JOIN member ON member.id = trip.memberid WHERE trippoint.id IN (SELECT id FROM (SELECT DISTINCT ON (tripid) tripid, id FROM trippoint) AS tripid) ORDER BY date DESC")
+	        if err != nil {
+	            c.AbortWithError(http.StatusInternalServerError, err)
+	            return
+	        }
+	        // if you are simply inserting data you can stop here. I'd suggest returning a JSON object saying "insert successful" or something along those lines.
+	        // get all the columns. You can do something with them here if you like, such as adding them to a table header, or adding them to the JSON
+	        cols, _ := rows.Columns()
+	        if len(cols) == 0 {
+	            c.AbortWithStatus(http.StatusNoContent)
+	            return
+	        }
+	        // This will hold an array of all values
+	        // makes an array of size 1, storing strings (replace with int or whatever data you want to store)
+	        output := make([]string, 1)
+
+	    // The variable(s) here should match your returned columns in the EXACT same order as you give them in your query
+	        var username string
+	        var picture string
+	        var name string
+	        var description string
+	        var date string
+
+	        for rows.Next() {
+	            rows.Scan(&username, &picture, &name, &description, &date)
+	            // VERY important that you store the result back in output
+	            output = append(output, username, picture, name, description, date)
+	        }
+	        //Finally, return your results to the user:
+	    c.JSON(http.StatusOK, gin.H{"result": output})
 	})
 
-	router.GET("/query2", func(c *gin.Context) {
-		table := "<table class='table'><thead><tr>"
-		// put your query here
-		rows, err := db.Query("SELECT * FROM table1") // <--- EDIT THIS LINE
-		if err != nil {
-			// careful about returning errors to the user!
-			c.AbortWithError(http.StatusInternalServerError, err)
-		}
-		// foreach loop over rows.Columns, using value
-		cols, _ := rows.Columns()
-		if len(cols) == 0 {
-			c.AbortWithStatus(http.StatusNoContent)
-		}
-		for _, value := range cols {
-			table += "<th class='text-center'>" + value + "</th>"
-		}
-		// once you've added all the columns in, close the header
-		table += "</thead><tbody>"
-		// columns
-		for rows.Next() {
-			// rows.Scan() // put columns here prefaced with &
-			table += "<tr><td></td></tr>" // <--- EDIT THIS LINE
-		}
-		// finally, close out the body and table
-		table += "</tbody></table>"
-		c.Data(http.StatusOK, "text/html", []byte(table))
+	router.POST("/trip", func(c *gin.Context) {
+		triptitle := c.PostForm("triptitle")
+	    rows, err := db.Query("SELECT * FROM trip_essentials WHERE trip = $1 ORDER BY trippointdate", triptitle)
+	        if err != nil {
+	            c.AbortWithError(http.StatusInternalServerError, err)
+	            return
+	        }
+	        // if you are simply inserting data you can stop here. I'd suggest returning a JSON object saying "insert successful" or something along those lines.
+	        // get all the columns. You can do something with them here if you like, such as adding them to a table header, or adding them to the JSON
+	        cols, _ := rows.Columns()
+	        if len(cols) == 0 {
+	            c.AbortWithStatus(http.StatusNoContent)
+	            return
+	        }
+	        // This will hold an array of all values
+	        // makes an array of size 1, storing strings (replace with int or whatever data you want to store)
+	        output := make([]string, 1)
+
+	    // The variable(s) here should match your returned columns in the EXACT same order as you give them in your query
+	        var member string
+	        var pic string
+	        var trip string
+	        var tripinfo string
+	        var trippointdate string
+	        var trippointinfo string
+	        var country string
+	        var city string
+	        var transportation string
+	        for rows.Next() {
+	            rows.Scan(&member, &pic, &trip, &tripinfo, &trippointdate, &trippointinfo, &country, &city, &transportation)
+	            // VERY important that you store the result back in output
+	            output = append(output, member, pic, trip, tripinfo, trippointdate, trippointinfo, country, city, transportation)
+	        }
+	        //Finally, return your results to the user:
+	    c.JSON(http.StatusOK, gin.H{"result": output})
 	})
 
-	router.GET("/query3", func(c *gin.Context) {
-		table := "<table class='table'><thead><tr>"
-		// put your query here
-		rows, err := db.Query("SELECT * FROM table1") // <--- EDIT THIS LINE
+	router.POST("/addtrip", func(c *gin.Context) {
+		name := c.PostForm("name")
+		description := c.PostForm("description")
+		_, err := db.Query("INSERT INTO trip(memberid, name, description) VALUES(1, $1, $2)", name, description)
 		if err != nil {
-			// careful about returning errors to the user!
 			c.AbortWithError(http.StatusInternalServerError, err)
+			return
 		}
-		// foreach loop over rows.Columns, using value
-		cols, _ := rows.Columns()
-		if len(cols) == 0 {
-			c.AbortWithStatus(http.StatusNoContent)
-		}
-		for _, value := range cols {
-			table += "<th class='text-center'>" + value + "</th>"
-		}
-		// once you've added all the columns in, close the header
-		table += "</thead><tbody>"
-		// columns
-		for rows.Next() {
-			// rows.Scan() // put columns here prefaced with &
-			table += "<tr><td></td></tr>" // <--- EDIT THIS LINE
-		}
-		// finally, close out the body and table
-		table += "</tbody></table>"
-		c.Data(http.StatusOK, "text/html", []byte(table))
+
+		c.JSON(http.StatusOK, gin.H{"result": "success", "trip": name, "user": "gcampbell0"})
 	})
+
+
+	router.POST("/addtrippoint", func(c *gin.Context) {
+		date := c.PostForm("date")
+		trippointdescription := c.PostForm("trippointdescription")
+		address1 := c.PostForm("address1")
+		city := c.PostForm("city")
+		country := c.PostForm("country")
+		transportationtype := c.PostForm("transportationtype")
+		transportationcost := c.PostForm("transportationcost")
+		transportation := c.PostForm("transportation")
+		_, err := db.Query("SELECT * FROM set_trippoint($1, $2, $3, $4, $5, $6, $7, $8)", date, trippointdescription, address1, city, country, transportationtype, transportationcost, transportation)
+		if err != nil {
+			c.AbortWithError(http.StatusInternalServerError, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"result": "success", "trippoint": trippointdescription, "user": "gcampbell0", "location": city + ", " + country})
+	})
+
 
 	// NO code should go after this line. it won't ever reach that point
 	router.Run(":" + port)
