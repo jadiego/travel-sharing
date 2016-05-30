@@ -97,25 +97,35 @@ CREATE TABLE localcontact (
 ```
 ### Sample Data
 ```sql
-INSERT INTO member (picture, firstname, lastname, username, password) VALUES ('https://robohash.org/errorfacilisautem.png?size=100x100&set=set1', 'George', 'Campbell', 'gcampbell0', 'P9ORqr');
+INSERT INTO member (picture, firstname, lastname, username, password)
+VALUES ('https://robohash.org/errorfacilisautem.png?size=100x100&set=set1', 'George', 'Campbell', 'gcampbell0', 'P9ORqr');
 
-INSERT INTO transportation (cost, type, name) VALUES (801.62, 'bullet train', 'Speedy');
+INSERT INTO transportation (cost, type, name)
+VALUES (801.62, 'bullet train', 'Speedy');
 
-INSERT INTO food (name, cost, rating) VALUES ('Bangers and mash', 11.49, '4');
+INSERT INTO food (name, cost, rating)
+VALUES ('Bangers and mash', 11.49, '4');
 
-INSERT INTO shelter (type, name, cost, rating) VALUES ('Hotel', 'Deluxe', 260.62, '5');
+INSERT INTO shelter (type, name, cost, rating)
+VALUES ('Hotel', 'Deluxe', 260.62, '5');
 
-INSERT INTO location (streetaddress1, streetaddress2, city, state, country, postalcode) VALUES ('647 Northport Park', '7957 Melvin Road', 'Panjerrejo', null, 'Indonesia', null);
+INSERT INTO location (streetaddress1, streetaddress2, city, state, country, postalcode)
+VALUES ('647 Northport Park', '7957 Melvin Road', 'Panjerrejo', null, 'Indonesia', null);
 
-INSERT INTO localcontact (firstname, lastname, phonenumber, email) VALUES ('Betty', 'Sanders', '254-(758)994-8477', 'bsanders0@alibaba.com');
+INSERT INTO localcontact (firstname, lastname, phonenumber, email)
+VALUES ('Betty', 'Sanders', '254-(758)994-8477', 'bsanders0@alibaba.com');
 
-INSERT INTO trip (memberID, name, description) VALUES (1, 'Vacation to Indonesia', 'This was my first trip to Indonesia, I really enjoyed the culture and the people!');
+INSERT INTO trip (memberID, name, description)
+VALUES (1, 'Vacation to Indonesia', 'This was my first trip to Indonesia, I really enjoyed the culture and the people!');
 
-INSERT INTO tripPoint (tripID, shelterID, locationID, transportationID, date, description) VALUES (1, 1, 1, 1, '2016-05-16 04:05:06', 'Lorem ipsum');
+INSERT INTO tripPoint (tripID, shelterID, locationID, transportationID, date, description)
+VALUES (1, 1, 1, 1, '2016-05-16 04:05:06', 'Lorem ipsum');
 
-INSERT INTO trippointfood (foodID, trippointID) VALUES (1, 3);
+INSERT INTO trippointfood (foodID, trippointID)
+VALUES (1, 3);
 
-INSERT INTO trippointlocalcontact (localcontactID, trippointID) VALUES (1, 1);
+INSERT INTO trippointlocalcontact (localcontactID, trippointID)
+VALUES (1, 1);
 ```
 ### Indices
 ```sql
@@ -136,14 +146,19 @@ INSERT INTO trip(memberid, name, description) VALUES (1, _n, _d);
 END;
 $tripid$ LANGUAGE plpgsql;
 
-CREATE FUNCTION set_trippoint(_date timestamp, _trippointdescription text, _address1 varchar(50), _city varchar(50), _country varchar(50), _transportationtype varchar(20), _transportationcost numeric(8,2), _transportation varchar(30))
+CREATE FUNCTION set_trippoint(_date timestamp, _trippointdescription text, _address1 varchar(50), 
+_city varchar(50), _country varchar(50), _transportationtype varchar(20), 
+_transportationcost numeric(8,2), _transportation varchar(30))
 RETURNS void
 AS
 $$ 
 BEGIN
-	INSERT INTO transportation(cost, type, name) VALUES (_transportationcost, _transportationtype, _transportation);
-	INSERT INTO location(streetaddress1, city, country) VALUES(_address1, _city, _country);
-	INSERT INTO trippoint(tripid, locationid, transportationid, date, description) VALUES((SELECT max(id) FROM trip), (SELECT max(id) FROM location), (SELECT max(id) FROM transportation), _date, _trippointdescription);
+	INSERT INTO transportation(cost, type, name) 
+	VALUES (_transportationcost, _transportationtype, _transportation);
+	INSERT INTO location(streetaddress1, city, country) 
+	VALUES(_address1, _city, _country);
+	INSERT INTO trippoint(tripid, locationid, transportationid, date, description) 
+	VALUES((SELECT max(id) FROM trip), (SELECT max(id) FROM location), (SELECT max(id) FROM transportation), _date, _trippointdescription);
 END;
 $$
  LANGUAGE plpgsql;
