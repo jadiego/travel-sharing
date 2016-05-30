@@ -98,7 +98,8 @@ CREATE TABLE localcontact (
 ### Sample Data
 ```sql
 INSERT INTO member (picture, firstname, lastname, username, password)
-VALUES ('https://robohash.org/errorfacilisautem.png?size=100x100&set=set1', 'George', 'Campbell', 'gcampbell0', 'P9ORqr');
+VALUES ('https://robohash.org/errorfacilisautem.png?size=100x100&set=set1', 
+'George', 'Campbell', 'gcampbell0', 'P9ORqr');
 
 INSERT INTO transportation (cost, type, name)
 VALUES (801.62, 'bullet train', 'Speedy');
@@ -116,7 +117,8 @@ INSERT INTO localcontact (firstname, lastname, phonenumber, email)
 VALUES ('Betty', 'Sanders', '254-(758)994-8477', 'bsanders0@alibaba.com');
 
 INSERT INTO trip (memberID, name, description)
-VALUES (1, 'Vacation to Indonesia', 'This was my first trip to Indonesia, I really enjoyed the culture and the people!');
+VALUES (1, 'Vacation to Indonesia', 
+'This was my first trip to Indonesia, I really enjoyed the culture and the people!');
 
 INSERT INTO tripPoint (tripID, shelterID, locationID, transportationID, date, description)
 VALUES (1, 1, 1, 1, '2016-05-16 04:05:06', 'Lorem ipsum');
