@@ -146,6 +146,8 @@ INSERT INTO trip(memberid, name, description) VALUES (1, _n, _d);
 END;
 $tripid$ LANGUAGE plpgsql;
 
+
+
 CREATE FUNCTION set_trippoint(_date timestamp, _trippointdescription text, _address1 varchar(50), 
 _city varchar(50), _country varchar(50), _transportationtype varchar(20), 
 _transportationcost numeric(8,2), _transportation varchar(30))
@@ -158,7 +160,8 @@ BEGIN
 	INSERT INTO location(streetaddress1, city, country) 
 	VALUES(_address1, _city, _country);
 	INSERT INTO trippoint(tripid, locationid, transportationid, date, description) 
-	VALUES((SELECT max(id) FROM trip), (SELECT max(id) FROM location), (SELECT max(id) FROM transportation), _date, _trippointdescription);
+	VALUES((SELECT max(id) FROM trip), (SELECT max(id) FROM location), 
+	(SELECT max(id) FROM transportation), _date, _trippointdescription);
 END;
 $$
  LANGUAGE plpgsql;
