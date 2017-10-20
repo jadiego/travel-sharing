@@ -1,6 +1,9 @@
 # Travel-Sharing Application
 
 ## Overview
+
+For my first experience in implementing a relational database, I grouped with two other students in my Introduction to Relational Database Management Systems class. We all shared a common love for traveling and we thought that adding a social networking aspect to a travel sharing application would be a really cool idea. From conceptual to physical modeling, we created an ERD that met the scope of our idea, which culminated to a travel sharing application where users could post information about their recent travels, as well as see their friend's travel activities. Though we only needed to display a READ and POST functionality for the final project, and should time allow one of us to continue the project, allowing users to create accounts would be at the top of my list as a feature I would work on.
+
 This travel sharing application prototype is Group 9's Final Database System for INFO340. See our application website [here](https://travel-sharing.herokuapp.com/).
 
 Made by **John Diego**, **Mayowa Aina**, **Jake Therrien**.
